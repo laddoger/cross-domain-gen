@@ -30,7 +30,7 @@ git clone https://github.com/tkpham3105/TALE.git
 cd TALE
 conda create --name tale python=3.10 -y
 conda activate tale
-pip install -r requirements
+pip install -r requirements.txt
 ```
 
 ## 🚀 Running TALE
