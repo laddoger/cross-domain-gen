@@ -16,7 +16,7 @@ from modeling_clip_exceptional import CLIPTextModelExceptional
 
 from clip.base_clip import CLIPEncoder
 from utils import load_bg, load_fg
-
+#test
 def main():
     parser = argparse.ArgumentParser(description='Parameters for running TALE framework')
     parser.add_argument('--model_path', type=str, default='stabilityai/stable-diffusion-2-1-base', help='Path to the pretrained model') #PixArt-alpha/PixArt-XL-2-512x512, stabilityai/stable-diffusion-2-1-base
