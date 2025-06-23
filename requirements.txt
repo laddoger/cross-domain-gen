@@ -1,7 +1,9 @@
---extra-index-url https://download.pytorch.org/whl/cu116
-torch==1.13.0+cu116
-torchvision==0.14.0+cu116
-torchaudio==0.13.0 
+# ✅ 删除 CUDA 后缀，仅保留 CPU/MPS 版本
+torch==1.13.0
+torchvision==0.14.0
+torchaudio==0.13.0
+
+# ✅ 保持以下依赖版本完全不变（除非与平台冲突）
 transformers
 diffusers==0.24.0
 opencv-python==4.10.0.84

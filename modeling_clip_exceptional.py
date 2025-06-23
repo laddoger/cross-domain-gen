@@ -17,10 +17,17 @@ from transformers.models.clip.modeling_clip import (
     CLIPTextEmbeddings,
     CLIPTextModel,
     CLIPEncoder,
-    _make_causal_mask,
+#    _make_causal_mask,
     CLIP_TEXT_INPUTS_DOCSTRING,
     CLIP_START_DOCSTRING
 ) 
+
+def _make_causal_mask(input_shape, dtype, device):
+    bsz, tgt_len = input_shape
+    mask = torch.full((tgt_len, tgt_len), float("-inf"), device=device)
+    mask_cond = torch.arange(tgt_len, device=device)
+    mask.masked_fill_(mask_cond[None, :] <= mask_cond[:, None], 0)
+    return mask[None, None, :, :].expand(bsz, 1, tgt_len, tgt_len).to(dtype)
 
 class CLIPTextEmbeddingsExceptional(CLIPTextEmbeddings):
 

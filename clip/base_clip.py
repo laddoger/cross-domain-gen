@@ -32,7 +32,8 @@ class CLIPEncoder(nn.Module):
         super().__init__()
         self.clip_model = load_clip_to_cpu()
         self.clip_model.requires_grad_(False)
-        self.clip_model.to(device)
+        self.clip_model.to(device=device, dtype=torch.float32)
+        #self.clip_model.to(device)
         self.device = device
         self.preprocess = torchvision.transforms.Normalize(
             (0.48145466*2-1, 0.4578275*2-1, 0.40821073*2-1),
@@ -51,7 +52,9 @@ class CLIPEncoder(nn.Module):
         img = self.to_tensor(img)
         img = torch.unsqueeze(img, 0)
         img = img.to(self.device)
-        
+
+        img = img.to(dtype=torch.float32)
+
         _, ref_feats = self.clip_model.encode_image_with_features(img)
         ref_feat = ref_feats[2][1:, 0, :]
         self.ref_gram = torch.mm(ref_feat.t(), ref_feat)

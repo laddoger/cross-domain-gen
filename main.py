@@ -33,14 +33,14 @@ def main():
     ###############################################
     # Init pipeline
     ###############################################
-    device = "cuda:7"
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if "PixArt" in args.model_path:
-        pipe = TALEPixArtAlphaPipeline.from_pretrained(args.model_path, torch_dtype=torch.float16)
-        pipe.text_encoder = T5EncoderModelExceptional.from_pretrained(args.model_path, torch_dtype=torch.float16, subfolder="text_encoder")
+        pipe = TALEPixArtAlphaPipeline.from_pretrained(args.model_path, torch_dtype=torch.float32)
+        pipe.text_encoder = T5EncoderModelExceptional.from_pretrained(args.model_path, torch_dtype=torch.float32, subfolder="text_encoder")
         pipe.transformer.requires_grad_(False)
     elif "stable-diffusion" in args.model_path:
-        pipe = TALEStableDiffusionPipeline.from_pretrained(args.model_path, torch_dtype=torch.float16)
-        pipe.text_encoder = CLIPTextModelExceptional.from_pretrained(args.model_path, torch_dtype=torch.float16, subfolder="text_encoder")
+        pipe = TALEStableDiffusionPipeline.from_pretrained(args.model_path, torch_dtype=torch.float32)
+        pipe.text_encoder = CLIPTextModelExceptional.from_pretrained(args.model_path, torch_dtype=torch.float32, subfolder="text_encoder")
         pipe.unet.requires_grad_(False)
 
     pipe.to(device)

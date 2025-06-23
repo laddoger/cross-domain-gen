@@ -1,4 +1,6 @@
 from typing import Callable, List, Optional, Tuple, Union, Dict
+
+from diffusers.models import controlnet
 from torchvision import transforms
 from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import *
 # from modeling_t5_exceptional import *
@@ -27,6 +29,7 @@ class TALEStableDiffusionPipeline(StableDiffusionPipeline):
             image_encoder,
             requires_safety_checker,
         )
+        self.controlnet = controlnet
 
     @torch.no_grad()
     def img_to_latents(
